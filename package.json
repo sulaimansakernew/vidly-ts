@@ -17,6 +17,7 @@
     "typescript": "^5.4.4"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "joi": "^17.12.3"
   }
 }
