@@ -24,6 +24,6 @@ function validateGenre(genre: { name: string }) {
   return schema.validate(genre);
 }
 
-export { validateGenre };
+export { IGenre, genreSchema, validateGenre };
 
 export default Genre;
