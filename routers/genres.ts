@@ -1,23 +1,7 @@
 import express, { Request, Response } from "express";
-import Joi from "joi";
-import { Schema, model, Document } from "mongoose";
+import Genre, { validateGenre } from "../models/generes";
 
 const router = express.Router();
-
-interface IGenre extends Document {
-  name: string;
-}
-
-const genreSchema = new Schema<IGenre>({
-  name: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 50,
-  },
-});
-
-const Genre = model<IGenre>("Genre", genreSchema);
 
 router.get("/", async (req: Request, res: Response) => {
   const genres = await Genre.find().sort("name");
@@ -63,13 +47,5 @@ router.get("/:id", async (req: Request, res: Response) => {
   if (!genre) return res.status(404).send("The genre with the given ID was not found.");
   res.send(genre);
 });
-
-function validateGenre(genre: { name: string }) {
-  const schema = Joi.object({
-    name: Joi.string().min(5).max(50).required(),
-  });
-
-  return schema.validate(genre);
-}
 
 export default router;
